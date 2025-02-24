@@ -56,6 +56,17 @@ export default function ModelsSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
+
+  // Função para tela cheia
+  const handleFullscreen = () => {
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      }
+    }
+  };
+
+
   // Função para avançar para o próximo modelo
   const nextModel = () => {
     setIsTextVisible(false); // Oculta o texto antes de trocar o modelo
@@ -123,13 +134,14 @@ export default function ModelsSection() {
           autoPlay
           muted
           loop
-          className="w-full h-full object-cover"
+          playsInline
+          className="w-full h-full object-cover opacity-50 md:opacity-70"
+          style={{ transform: 'translateZ(0)' }}
         >
           <source src={models[currentIndex].video} type="video/mp4" />
           Seu navegador não suporta vídeos HTML5.
         </video>
-        {/* Overlay escuro */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/60 md:bg-black/50"></div>
       </div>
 
       {/* Conteúdo principal */}
@@ -203,6 +215,8 @@ export default function ModelsSection() {
               </p>
             </div>
           </div>
+
+          
         </div>
       </div>
     </section>

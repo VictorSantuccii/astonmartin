@@ -142,12 +142,13 @@ export default function RacesSection() {
     >
       {/* Vídeo de fundo */}
       <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
+      <video
           autoPlay
-          muted
           loop
-          className="w-full h-full object-cover "
+          muted
+          playsInline // Adicionado para comportamento correto em iOS
+          className="w-full h-full object-cover opacity-50"
+          style={{ transform: 'translateZ(0)' }} // Força aceleração de hardware
         >
           <source src="/races.mp4" type="video/mp4" /> {/* Substitua pelo caminho do vídeo */}
           Seu navegador não suporta vídeos HTML5.

@@ -1,16 +1,26 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react'; // Adicionei useRef aqui
 import { FaArrowRight } from 'react-icons/fa';
 
 export default function HeroSection() {
   const [isLogoVisible, setIsLogoVisible] = useState(false);
   const [isBackgroundDark, setIsBackgroundDark] = useState(true);
   const [isContentVisible, setIsContentVisible] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null); // Referência para o vídeo
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Função para ativar o modo de tela cheia no vídeo
+  const handleFullscreen = () => {
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen(); // Método padrão
+      }
     }
   };
 
@@ -45,10 +55,13 @@ export default function HeroSection() {
       {/* Vídeo de fundo da Aston Martin */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
+          ref={videoRef} // Referência para o vídeo
           autoPlay
           loop
           muted
+          playsInline
           className="w-full h-full object-cover opacity-50"
+          style={{ transform: 'translateZ(0)' }}
         >
           <source src="/astonmartin.mp4" type="video/mp4" />
           Seu navegador não suporta vídeos.
@@ -86,8 +99,19 @@ export default function HeroSection() {
             Onde a elegância encontra a performance.
           </p>
         )}
-   
-    
+
+        {/* Botão para tela cheia */}
+        {isContentVisible && (
+          <div className="flex justify-center mt-8"> {/* Centraliza o botão */}
+            <button
+              onClick={handleFullscreen}
+              className="px-6 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2 animate-fadeIn"
+            >
+              <span>Assistir em tela cheia</span>
+              <FaArrowRight className="text-xl" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

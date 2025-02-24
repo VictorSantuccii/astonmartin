@@ -42,7 +42,9 @@ const NewsSection = () => {
           autoPlay
           loop
           muted
+          playsInline // Adicionado para comportamento correto em iOS
           className="w-full h-full object-cover opacity-50"
+          style={{ transform: 'translateZ(0)' }} // Força aceleração de hardware
         >
           <source src="/f1.mp4" type="video/mp4" />
           Seu navegador não suporta vídeos HTML5.

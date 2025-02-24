@@ -52,10 +52,12 @@ export default function ContactSection() {
       {/* Vídeo de fundo */}
       <div className="absolute inset-0 z-0">
         <video
-          autoPlay
+        autoPlay
           muted
           loop
+          playsInline
           className="w-full h-full object-cover"
+          style={{ transform: 'translateZ(0)' }}
         >
           <source src="/contato.mp4" type="video/mp4" /> {/* Substitua pelo caminho do vídeo */}
           Seu navegador não suporta vídeos HTML5.
